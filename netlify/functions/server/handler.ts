@@ -42,11 +42,6 @@ export function createRequestHandler({
 }
 
 export function createRemixRequest(event: HandlerEvent) {
-  let host = event.headers["x-forwarded-host"] || event.headers.host;
-  let rawPath = getRawPath(event);
-
-  let url = new URL(rawPath, `https://${host}`);
-
   let init: RequestInit = {
     method: event.httpMethod,
     headers: createRemixHeaders(event.multiValueHeaders),
@@ -58,7 +53,7 @@ export function createRemixRequest(event: HandlerEvent) {
       : event.body;
   }
 
-  return new Request(url.toString(), init);
+  return new Request(event.rawUrl, init);
 }
 
 export function createRemixHeaders(
@@ -75,26 +70,4 @@ export function createRemixHeaders(
   }
 
   return headers;
-}
-
-// TODO: Figure why netlify urls lose information?
-function getRawPath(event: HandlerEvent) {
-  let searchParams = new URLSearchParams();
-  let paramKeys = event.queryStringParameters
-    ? Object.keys(event.queryStringParameters)
-    : [];
-
-  for (const key of paramKeys) {
-    let values = event.multiValueQueryStringParameters?.[key];
-    if (values) {
-      for (const value of values) {
-        searchParams.append(key, value);
-      }
-    }
-  }
-
-  let rawPath = event.path;
-  let rawParams = searchParams.toString();
-  if (rawParams) rawParams += `?${rawParams}`;
-  return rawPath;
 }
