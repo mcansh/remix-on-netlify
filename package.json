@@ -5,8 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "remix build",
-    "dev": "remix run",
-    "start": "remix-serve netlify/functions/server/build"
+    "dev": "remix dev"
   },
   "dependencies": {
     "@netlify/functions": "0.7.2",

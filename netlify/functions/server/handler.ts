@@ -52,7 +52,17 @@ export function createRemixRequest(event: HandlerEvent) {
       : event.body;
   }
 
-  return new Request(event.rawUrl, init);
+  let url: URL;
+
+  if (process.env.NODE_ENV !== "development") {
+    let origin = event.headers.host;
+    let rawPath = getRawPath(event);
+    url = new URL(rawPath, `http://${origin}`);
+  } else {
+    url = new URL(event.rawUrl);
+  }
+
+  return new Request(url.toString(), init);
 }
 
 export function createRemixHeaders(
@@ -69,4 +79,22 @@ export function createRemixHeaders(
   }
 
   return headers;
+}
+
+// `netlify dev` doesn't give you the full url in event.rawUrl
+function getRawPath(event: HandlerEvent) {
+  let searchParams = new URLSearchParams();
+  let paramKeys = Object.keys(event.multiValueQueryStringParameters);
+  for (let key of paramKeys) {
+    let values = event.multiValueQueryStringParameters[key];
+    for (let val of values) {
+      searchParams.append(key, val);
+    }
+  }
+  let rawParams = searchParams.toString();
+
+  let rawPath = event.path;
+  if (rawParams) rawPath += `?${rawParams}`;
+
+  return rawPath;
 }
