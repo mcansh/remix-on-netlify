@@ -1,4 +1,3 @@
-import { URL } from "url";
 import type { AppLoadContext, RequestInit, ServerBuild } from "@remix-run/node";
 import {
   Headers,
