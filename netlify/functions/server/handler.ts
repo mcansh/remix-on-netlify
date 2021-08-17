@@ -54,7 +54,7 @@ export function createRemixRequest(event: HandlerEvent) {
 
   let url: URL;
 
-  if (process.env.NODE_ENV !== "development") {
+  if (process.env.NODE_ENV === "development") {
     let origin = event.headers.host;
     let rawPath = getRawPath(event);
     url = new URL(rawPath, `http://${origin}`);
