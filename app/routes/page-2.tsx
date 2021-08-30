@@ -23,9 +23,9 @@ export default function Index() {
 
   return (
     <div style={{ textAlign: "center", padding: 20 }}>
-      <h2>Welcome to Remix on Netlify!</h2>
+      <h2>Welcome to Page 2!</h2>
 
-      <Link to="/page-2">Go to page 2</Link>
+      <Link to="/">Go back to the home page</Link>
 
       <p>Message from the loader: {data.message}</p>
     </div>
