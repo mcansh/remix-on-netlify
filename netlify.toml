@@ -1,15 +1,17 @@
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
 [build]
-  functions = "netlify/functions"
   publish = "public"
+  command = "npm run build"
 
 [dev]
-  functions = "netlify/functions"
   publish = "public"
   port = 3000
 
-[functions]
-  node_bundler = "esbuild"
-  external_node_modules = ["@remix-run/react", "react", "react-dom"]
+[context.dev]
+  environment = { NODE_ENV = "development" }
 
 [[redirects]]
   from = "/*"
