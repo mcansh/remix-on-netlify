@@ -10,7 +10,7 @@ module.exports = {
     },
     {
       name: "Netlify",
-      script: "DEBUG=* netlify dev",
+      script: "netlify dev",
       ignore_watch: ["."],
       env: {
         NODE_ENV: "development",
