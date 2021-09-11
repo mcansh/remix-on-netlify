@@ -18,7 +18,7 @@ export let loader: LoaderFunction = async () => {
   return { message: "this is awesome 😎" };
 };
 
-export default function Index() {
+export default function Page2() {
   let data = useRouteData();
 
   return (
