@@ -15,7 +15,7 @@ export let links: LinksFunction = () => {
 };
 
 export let loader: LoaderFunction = async () => {
-  return { message: "this is so awesome 😎" };
+  return { message: "this is so awesome 😎🤘" };
 };
 
 export default function Index() {
